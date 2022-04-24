@@ -5,10 +5,10 @@ const fetchRepos = ({ search = "", language = "Python" }) => {
     `language:${language} ${search} in:name`
   );
 
-  const options = process.env.REACT_APP_NOT_SECRET_TOKEN
+  const options = process.env.REACT_APP_NOT_SECRET_PAT
     ? {
         headers: {
-          Authorization: `token ${process.env.REACT_APP_NOT_SECRET_TOKEN}`,
+          Authorization: `token ${process.env.REACT_APP_NOT_SECRET_PAT}`,
         },
       }
     : {};
