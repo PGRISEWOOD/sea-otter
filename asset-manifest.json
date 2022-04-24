@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/sea-otter/static/css/main.073c9b0a.css",
-    "main.js": "/sea-otter/static/js/main.82f7b018.js",
+    "main.js": "/sea-otter/static/js/main.db5adcec.js",
     "static/js/787.37b1f2d2.chunk.js": "/sea-otter/static/js/787.37b1f2d2.chunk.js",
     "index.html": "/sea-otter/index.html",
     "main.073c9b0a.css.map": "/sea-otter/static/css/main.073c9b0a.css.map",
-    "main.82f7b018.js.map": "/sea-otter/static/js/main.82f7b018.js.map",
+    "main.db5adcec.js.map": "/sea-otter/static/js/main.db5adcec.js.map",
     "787.37b1f2d2.chunk.js.map": "/sea-otter/static/js/787.37b1f2d2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.82f7b018.js"
+    "static/js/main.db5adcec.js"
   ]
 }
