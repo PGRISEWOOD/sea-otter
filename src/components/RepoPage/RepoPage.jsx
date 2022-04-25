@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { debounce } from "lodash";
 import {
   Grid,
@@ -29,20 +29,24 @@ const LANGUAGES = [
 ];
 
 const RepoPage = () => {
-  const [search, setSearch] = useState("");
-  const [language, setLanguage] = useState("JavaScript");
-  const { loading, repos } = useRepos({ search, language });
-  const { items, total_count: totalCount } = repos || {};
+  const [searchParams, setSearchParams] = useState({
+    page: 1,
+    search: "",
+    language: "JavaScript",
+  });
+  const { loading, repos, totalCount, hasMore } = useRepos(searchParams);
 
   const handleSearch = debounce(({ target: { value } }) => {
-    setSearch(value);
+    setSearchParams((params) => ({ ...params, page: 1, search: value }));
   }, 1000);
 
   const handleLanguageChange = ({ target: { value } }) => {
-    setLanguage(value);
+    setSearchParams((params) => ({ ...params, page: 1, language: value }));
   };
 
-  const handleLoadMore = () => {};
+  const handleLoadMore = () => {
+    setSearchParams((params) => ({ ...params, page: params.page + 1 }));
+  };
 
   return (
     <Box>
@@ -61,7 +65,7 @@ const RepoPage = () => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={language}
+              value={searchParams.language}
               label="Language"
               onChange={handleLanguageChange}
             >
@@ -73,19 +77,21 @@ const RepoPage = () => {
             </Select>
           </FormControl>
         </Grid>
-        {items && (
+        {repos && (
           <>
             <Grid item xs={12}>
               <h2>{`Showing ${1}-${
-                items?.length
+                repos?.length
               } of ${totalCount} repositories`}</h2>
             </Grid>
-            {items?.map(({ id, name, stargazers_count: stars }) => (
-              <Grid item key={id} xs={12} md={6} lg={3}>
-                <Card variant="outlined">
-                  {name}----{stars}
-                </Card>
-              </Grid>
+            {repos?.map(({ id, name, stargazers_count: stars }) => (
+              <Fragment key={id}>
+                <Grid item xs={12} md={6} lg={3}>
+                  <Card variant="outlined">
+                    {name}----{stars}
+                  </Card>
+                </Grid>
+              </Fragment>
             ))}
           </>
         )}
@@ -94,7 +100,7 @@ const RepoPage = () => {
             <CircularProgress />
           </Grid>
         )}
-        {items && !loading && (
+        {repos && !loading && hasMore && (
           <Grid item xs={12}>
             <Button variant="contained" onClick={handleLoadMore}>
               Load more
