@@ -3,7 +3,7 @@
 Application is deployed statically on github pages at https://pgrisewood.github.io/sea-otter/
 gh-pages version does not use an authentication token, so is rate limited in number of requests to Github API. An error alert is displayed when the limit is reached.
 
-When running locally an auth token can be provided to grant a higher request limit. This is passed as environment variable
+When running locally an auth token can be provided to grant a higher request limit. This is passed as [environment variable](https://create-react-app.dev/docs/adding-custom-environment-variables)
 `set "REACT_APP_NOT_SECRET_PAT=abcdef" && npm start`
 
 pre-commit hook is configured using husky. Runninng `npm i` will add the hook and subsequent commits with trigger `pre-commit` script running the linting,formatting, unit tests 
