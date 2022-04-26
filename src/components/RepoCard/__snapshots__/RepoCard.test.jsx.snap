@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders snapshot correctly 1`] = `
+<div
+  className="MuiPaper-root MuiPaper-outlined MuiPaper-rounded MuiCard-root css-1l7g557-MuiPaper-root-MuiCard-root"
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "justifyContent": "space-between",
+        "padding": "10px",
+      }
+    }
+  >
+    <span
+      className="MuiTypography-root MuiTypography-subtitle1 css-as4pw1-MuiTypography-root"
+    >
+      someRepoName
+    </span>
+    <span
+      className="BaseBadge-root MuiBadge-root css-1c32n2y-MuiBadge-root"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+        data-testid="StarOutlineIcon"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"
+        />
+      </svg>
+      <span
+        className="BaseBadge-badge MuiBadge-badge MuiBadge-standard MuiBadge-anchorOriginTopLeft MuiBadge-anchorOriginTopLeftRectangular MuiBadge-overlapRectangular MuiBadge-colorSecondary css-1qjri7h-MuiBadge-badge"
+      >
+        3
+      </span>
+    </span>
+  </div>
+  <div
+    className="MuiCardActions-root MuiCardActions-spacing css-1t6e9jv-MuiCardActions-root"
+  >
+    <a
+      className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1ps4owl-MuiTypography-root-MuiLink-root"
+      href="html_url"
+      onBlur={[Function]}
+      onFocus={[Function]}
+    >
+      Github
+    </a>
+    <a
+      className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1ps4owl-MuiTypography-root-MuiLink-root"
+      href="homepage"
+      onBlur={[Function]}
+      onFocus={[Function]}
+    >
+      Homepage
+    </a>
+  </div>
+</div>
+`;

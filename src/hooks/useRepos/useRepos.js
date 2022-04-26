@@ -4,7 +4,12 @@ import { REPO_EVENTS } from "../../store/reposSaga";
 
 const useRepos = ({ search, language, page }) => {
   const dispatch = useDispatch();
-  const { items: repos, totalCount, loading } = useSelector((state) => state);
+  const {
+    items: repos,
+    totalCount,
+    loading,
+    error,
+  } = useSelector((state) => state);
   const hasMore = totalCount > repos?.length;
 
   useEffect(() => {
@@ -14,7 +19,7 @@ const useRepos = ({ search, language, page }) => {
     });
   }, [search, language, page]);
 
-  return { loading, repos, totalCount, hasMore };
+  return { loading, repos, totalCount, hasMore, error };
 };
 
 export { useRepos };

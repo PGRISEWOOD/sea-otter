@@ -1,16 +1,17 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { debounce } from "lodash";
 import {
   Grid,
   TextField,
   Box,
-  Card,
   InputLabel,
   FormControl,
   Select,
   MenuItem,
   Button,
   CircularProgress,
+  Alert,
 } from "@mui/material";
 import { useRepos } from "../../hooks/useRepos/useRepos";
 
@@ -28,13 +29,13 @@ const LANGUAGES = [
   "TypeScript",
 ];
 
-const RepoPage = () => {
+const RepoPage = ({ children }) => {
   const [searchParams, setSearchParams] = useState({
     page: 1,
     search: "",
     language: "JavaScript",
   });
-  const { loading, repos, totalCount, hasMore } = useRepos(searchParams);
+  const { loading, repos, totalCount, hasMore, error } = useRepos(searchParams);
 
   const handleSearch = debounce(({ target: { value } }) => {
     setSearchParams((params) => ({ ...params, page: 1, search: value }));
@@ -49,52 +50,51 @@ const RepoPage = () => {
   };
 
   return (
-    <Box>
+    <Box sx={{ p: 2 }}>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            id="outlined-basic"
-            label="Search repositories"
-            variant="outlined"
-            onChange={handleSearch}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControl>
-            <InputLabel id="demo-simple-select-label">Language</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={searchParams.language}
-              label="Language"
-              onChange={handleLanguageChange}
-            >
-              {LANGUAGES.map((lang) => (
-                <MenuItem value={lang} key={lang}>
-                  {lang}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-        {repos && (
-          <>
-            <Grid item xs={12}>
-              <h2>{`Showing ${1}-${
-                repos?.length
-              } of ${totalCount} repositories`}</h2>
-            </Grid>
-            {repos?.map(({ id, name, stargazers_count: stars }) => (
-              <Fragment key={id}>
-                <Grid item xs={12} md={6} lg={3}>
-                  <Card variant="outlined">
-                    {name}----{stars}
-                  </Card>
-                </Grid>
-              </Fragment>
-            ))}
-          </>
+        {error && (
+          <Grid item xs={12}>
+            <Alert data-testid="error-alert" severity="error">
+              {error}
+            </Alert>
+          </Grid>
         )}
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              id="search-input"
+              data-testid="search-input"
+              label="Search repositories"
+              variant="outlined"
+              onChange={handleSearch}
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <FormControl fullWidth>
+              <InputLabel id="language-select-label">Language</InputLabel>
+              <Select
+                labelId="language-select-label"
+                data-testid="language-select"
+                id="language-select"
+                value={searchParams.language}
+                label="Language"
+                onChange={handleLanguageChange}
+              >
+                {LANGUAGES.map((lang) => (
+                  <MenuItem value={lang} key={lang}>
+                    {lang}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
+        {repos &&
+          children({
+            repos,
+            totalCount,
+          })}
         {loading && (
           <Grid item xs={12}>
             <CircularProgress />
@@ -102,7 +102,11 @@ const RepoPage = () => {
         )}
         {repos && !loading && hasMore && (
           <Grid item xs={12}>
-            <Button variant="contained" onClick={handleLoadMore}>
+            <Button
+              data-testid="load-more-button"
+              variant="contained"
+              onClick={handleLoadMore}
+            >
               Load more
             </Button>
           </Grid>
@@ -110,6 +114,9 @@ const RepoPage = () => {
       </Grid>
     </Box>
   );
+};
+RepoPage.propTypes = {
+  children: PropTypes.func.isRequired,
 };
 
 export { RepoPage };

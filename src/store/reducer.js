@@ -32,7 +32,7 @@ const appReducer = (state = initialState, { type, payload }) => {
         incompleteResults,
         items: [...state.items, ...items],
         error: null,
-        loading: null,
+        loading: false,
       };
     }
     case REPO_ACTIONS.SET: {
@@ -48,11 +48,11 @@ const appReducer = (state = initialState, { type, payload }) => {
         incompleteResults,
         items,
         error: null,
-        loading: null,
+        loading: false,
       };
     }
     case REPO_ACTIONS.ERROR: {
-      return { ...state, error: payload, loading: null };
+      return { ...state, error: payload, loading: false };
     }
     default: {
       return state;

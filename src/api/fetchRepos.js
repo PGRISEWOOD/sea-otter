@@ -1,6 +1,6 @@
 const GIT_HUB_BASE_URL = "https://api.github.com/search/repositories?q=";
 
-const fetchRepos = ({ search = "", language = "Python", page = 1 }) => {
+const fetchRepos = async ({ search = "", language = "Python", page = 1 }) => {
   const queryString = `language:${encodeURIComponent(
     language
   )} ${encodeURIComponent(search)} in:name&page=${page}&sort=stars`;
@@ -13,9 +13,12 @@ const fetchRepos = ({ search = "", language = "Python", page = 1 }) => {
       }
     : {};
 
-  return fetch(`${GIT_HUB_BASE_URL}${queryString}`, options).then((response) =>
-    response.json()
-  );
+  const response = await fetch(`${GIT_HUB_BASE_URL}${queryString}`, options);
+  const json = await response.json();
+  if (!response.ok) {
+    throw Error(json.message);
+  }
+  return json;
 };
 
 export { fetchRepos };

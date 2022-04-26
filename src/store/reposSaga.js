@@ -16,12 +16,12 @@ function* searchRepos({ payload }) {
       type: payload.page === 1 ? REPO_ACTIONS.SET : REPO_ACTIONS.APPEND,
       payload: data,
     });
-  } catch ({ message }) {
-    yield put({ type: REPO_ACTIONS.ERROR, message });
+  } catch (error) {
+    yield put({ type: REPO_ACTIONS.ERROR, payload: error.message });
   }
 }
 function* reposSaga() {
   yield takeLatest(REPO_EVENTS.SEARCH_REQUESTED, searchRepos);
 }
 
-export { reposSaga, REPO_EVENTS };
+export { searchRepos, reposSaga, REPO_EVENTS };
