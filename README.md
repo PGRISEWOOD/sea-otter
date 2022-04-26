@@ -1,3 +1,19 @@
+
+# Sea Otter
+Application is deployed statically on github pages at https://pgrisewood.github.io/sea-otter/
+gh-pages version does not use an authentication token, so is rate limited in number of requests to Github API. An error alert is displayed when the limit is reached.
+
+When running locally an auth token can be provided to grant a higher request limit. This is passed as environment variable
+`set "REACT_APP_NOT_SECRET_PAT=abcdef" && npm start`
+
+pre-commit hook is configured using husky. Runninng `npm i` will add the hook and subsequent commits with trigger `pre-commit` script running the linting,formatting, unit tests 
+
+
+
+This app was bootstrapped with create-react-app and using most of the default scripts, cra generated readme is below
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
